@@ -16,7 +16,7 @@ namespace Task1_Board
         internal static void Main(string[] args)
         {
             UI user = new UI();
-            user.UserChoice(0);
+            user.UserChoice();
         }
     }
 }

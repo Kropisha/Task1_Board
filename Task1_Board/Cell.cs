@@ -2,12 +2,15 @@
 // Copyright (c) 2018 All Rights Reserved
 // </copyright>
 // <author>Yuliia Kropyvna</author>
+
 namespace Task1_Board
 {
+    using System;
+
     /// <summary>
     /// This class represents a cell
     /// </summary>
-     internal class Cell
+    public class Cell
     {
         /// <summary>
         /// current color of cell
@@ -24,7 +27,7 @@ namespace Task1_Board
         /// </summary>
         public Cell()
         {
-            this.cellColor = Color.Grey;
+            this.CellColor = Color.Grey;
             this.Size = 1;
         }
 
@@ -35,8 +38,15 @@ namespace Task1_Board
         /// <param name="size">size of cell</param>
         public Cell(Color color, int size)
         {
-            this.cellColor = color;
-            this.Size = size;
+            if (size > 0 && size < 7)
+            {
+                this.CellColor = color;
+                this.Size = size;
+            }
+            else
+            {
+                throw new ArgumentException("The value for cell is incorrect");
+            }
         }
 
         /// <summary>
@@ -68,6 +78,22 @@ namespace Task1_Board
             set
             {
                 this.size = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the color of cell
+        /// </summary>
+        public Color CellColor
+        {
+            get
+            {
+                return this.cellColor;
+            }
+
+            set
+            {
+                this.cellColor = value;
             }
         }
     }

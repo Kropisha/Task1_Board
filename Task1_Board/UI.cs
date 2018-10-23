@@ -11,7 +11,7 @@ namespace Task1_Board
     /// <summary>
     /// Present visualization for user
     /// </summary>
-    internal class UI : GetMenu
+    public class UI : GetMenu
     {
         /// <summary>
         /// Show menu for board task
@@ -39,8 +39,7 @@ namespace Task1_Board
         /// <summary>
         /// Show logic depending on the choice
         /// </summary>
-        /// <param name="i">position of user choice(from top)</param>
-        public override void UserChoice(int i)
+        public override void UserChoice()
         {
             BusinessLogic.UsersAction action;
             do
@@ -90,7 +89,8 @@ namespace Task1_Board
             int height = 1;
             int width = 1;
             int size = 1;
-            
+            bool isOk = true;
+
             try
             {
                 Console.WriteLine("Please, write the height: ");
@@ -102,13 +102,28 @@ namespace Task1_Board
             }
             catch (FormatException)
             {
+                isOk = false;
                 Console.BackgroundColor = ConsoleColor.DarkRed;
                 Console.Beep();
                 Console.WriteLine("Just positive natural digit.");
             }
-          
-            Console.WriteLine("Do you want to play white?");
-            string key = Console.ReadLine();
+
+            if (isOk)
+            {
+               this.InitializeBoard(height, width, size);
+            }
+
+            Console.ReadKey();
+        }
+
+        /// <summary>
+        /// Set the board
+        /// </summary>
+        /// <param name="height">height of board</param>
+        /// <param name="width">width of board</param>
+        /// <returns>the instance of board</returns>
+        public Board GetBoard(int height, int width)
+        {
             Board currentBoard = new Board();
             try
             {
@@ -120,27 +135,37 @@ namespace Task1_Board
                 Console.WriteLine("Just positive natural digit.");
             }
 
-            Cell.Color color = new Cell.Color();
-            Cell currentCell = new Cell();
-            if (size > 0 && size < 7)
-            {
-                currentCell = new Cell(color, size);
-            }
-
-            if (key == "yes")
-            {
-                this.GenerateBoard(height, width, currentBoard, currentCell, (Cell.Color)1, 0);
-            }
-            else
-            {
-                this.GenerateBoard(height, width, currentBoard, currentCell, 0, (Cell.Color)1);
-            }
-
-            Console.ReadKey();
+            return currentBoard;
         }
 
         /// <summary>
-        /// Set color pf cell
+        /// Initialize board and cells
+        /// </summary>
+        /// <param name="height">height of board</param>
+        /// <param name="width">width of board</param>
+        /// <param name="size">cell size</param>
+        private void InitializeBoard(int height, int width, int size)
+        {
+            Console.WriteLine("Do you want to play on standart board?");
+            string key = Console.ReadLine();
+            Board currentBoard = this.GetBoard(height, width);
+
+            Cell.Color color = new Cell.Color();
+            Cell currentCell = new Cell();
+            currentCell = new Cell(color, size);
+
+                if (key == "yes")
+                {
+                    this.GenerateBoard(height, width, currentBoard, currentCell, (Cell.Color)1, 0);
+                }
+                else
+                {
+                    this.GenerateBoard(height, width, currentBoard, currentCell, 0, (Cell.Color)1);
+                }
+        }
+
+        /// <summary>
+        /// Set console color of cell
         /// </summary>
         /// <param name="color"> enum color</param>
         private void SetColor(Cell.Color color)

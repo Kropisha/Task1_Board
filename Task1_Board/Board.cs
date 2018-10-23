@@ -9,7 +9,7 @@ namespace Task1_Board
     /// <summary>
     /// This class represent a board
     /// </summary>
-    internal class Board
+    public class Board
     {
         /// <summary>
         /// current width
@@ -42,9 +42,16 @@ namespace Task1_Board
         /// <param name="height">height of board</param>
         public Board(int width, int height)
         {
-            this.Width = width;
-            this.Height = height;
-            this.cellArray = new Cell[this.Width, this.Height];
+            if (width > 0 && height > 0)
+            {
+                this.Width = width;
+                this.Height = height;
+                this.cellArray = new Cell[this.Width, this.Height];
+            }
+            else
+            {
+                throw new ArgumentException("The size should be more than 0.");
+            }
         }
 
         /// <summary>
