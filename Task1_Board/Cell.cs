@@ -10,7 +10,7 @@ namespace Task1_Board
     /// <summary>
     /// This class represents a cell
     /// </summary>
-    public class Cell
+    public class Cell : ICell
     {
         /// <summary>
         /// current color of cell
@@ -47,22 +47,6 @@ namespace Task1_Board
             {
                 throw new ArgumentException("The value for cell is incorrect");
             }
-        }
-
-        /// <summary>
-        /// Current color of the cell on board
-        /// </summary>
-        public enum Color
-        {
-            /// <summary>
-            /// grey color
-            /// </summary>
-            Grey,
-
-            /// <summary>
-            /// white color
-            /// </summary>
-            White
         }
 
         /// <summary>

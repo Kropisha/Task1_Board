@@ -1,14 +1,9 @@
-﻿// <copyright file="BusinessLogic.cs" company="My Company">
+﻿// <copyright file="enumUserAction.cs" company="My Company">
 // Copyright (c) 2018 All Rights Reserved
 // </copyright>
 // <author>Yuliia Kropyvna</author>
 namespace Task1_Board
 {
-    /// <summary>
-    /// This class for enum
-    /// </summary>
-    internal class BusinessLogic
-    {
         /// <summary>
         /// Types of user choice
         /// </summary>
@@ -29,5 +24,4 @@ namespace Task1_Board
             /// </summary>
             Quit
         }
-    }
 }

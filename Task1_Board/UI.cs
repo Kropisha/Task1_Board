@@ -32,6 +32,8 @@ namespace Task1_Board
             Console.WriteLine("           3.Quit                 ");
             Console.WriteLine();
             Console.WriteLine(" What is your choice? [tap number]");
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.White;
 
             return Console.ReadKey().KeyChar;
         }
@@ -41,7 +43,9 @@ namespace Task1_Board
         /// </summary>
         public override void UserChoice()
         {
-            BusinessLogic.UsersAction action;
+            Console.Title = " My Board [Kropyvna Yuliia]";
+            UsersAction action;
+            Console.ResetColor();
             do
             {
                 Console.SetCursorPosition(0, 0);
@@ -51,7 +55,7 @@ namespace Task1_Board
 
                 switch (action)
                 {
-                    case BusinessLogic.UsersAction.Help:
+                    case UsersAction.Help:
                         Help helper = new Help();
                         try
                         {
@@ -65,20 +69,21 @@ namespace Task1_Board
 
                         Console.ReadKey();
                         break;
-                    case BusinessLogic.UsersAction.Program:
+                    case UsersAction.Program:
                         Console.ResetColor();
                         this.TaskWithBoard();
                         break;
-                    case BusinessLogic.UsersAction.Quit:
+                    case UsersAction.Quit:
                         Environment.Exit(0);
                         break;
                     default:
                         break;
                 }
 
+                Console.ResetColor();
                 Console.Clear();
             }
-            while (action != BusinessLogic.UsersAction.Quit);
+            while (action != UsersAction.Quit);
         }
 
         /// <summary>
@@ -148,19 +153,27 @@ namespace Task1_Board
         {
             Console.WriteLine("Do you want to play on standart board?");
             string key = Console.ReadLine();
-            Board currentBoard = this.GetBoard(height, width);
-
-            Cell.Color color = new Cell.Color();
+            Board currentBoard = new Board();
+            try
+            {
+               currentBoard = this.GetBoard(height, width);
+            }
+            catch (ArgumentException ex)
+            {
+                Console.Beep();
+                Console.WriteLine(ex.Message);
+            }
+            Color color = new Color();
             Cell currentCell = new Cell();
             currentCell = new Cell(color, size);
 
                 if (key == "yes")
                 {
-                    this.GenerateBoard(height, width, currentBoard, currentCell, (Cell.Color)1, 0);
+                    this.GenerateBoard(height, width, currentBoard, currentCell, (Color)1, 0);
                 }
                 else
                 {
-                    this.GenerateBoard(height, width, currentBoard, currentCell, 0, (Cell.Color)1);
+                    this.GenerateBoard(height, width, currentBoard, currentCell, 0, (Color)1);
                 }
         }
 
@@ -168,14 +181,14 @@ namespace Task1_Board
         /// Set console color of cell
         /// </summary>
         /// <param name="color"> enum color</param>
-        private void SetColor(Cell.Color color)
+        private void SetColor(Color color)
         {
             switch (color)
             {
-                case Cell.Color.Grey:
+                case Color.Grey:
                     Console.BackgroundColor = ConsoleColor.DarkGray;
                     break;
-                case Cell.Color.White:
+                case Color.White:
                     Console.BackgroundColor = ConsoleColor.White;
                     break;
                 default:
@@ -192,11 +205,11 @@ namespace Task1_Board
         /// <param name="currentCell">instance of cell</param>
         /// <param name="start">color depending on board position</param>
         /// <param name="end"> next color depending on board position</param>
-        private void GenerateBoard(int width, int height, Board currentBoard, Cell currentCell, Cell.Color start, Cell.Color end)
+        private void GenerateBoard(int width, int height, Board currentBoard, Cell currentCell, Color start, Color end)
         {
             int z = 0;
             int w = 0;
-            Cell.Color color = new Cell.Color();
+            Color color = new Color();
             for (int i = 0; i < width; i++)
             {
                 for (int j = 0; j < height; j++)
@@ -252,11 +265,12 @@ namespace Task1_Board
         /// <param name="j">height of board</param>
         private void Draw(Board currentBoard, Cell currentCell, ref int z, ref int w, int i, int j)
         {
-            int x;
-            int y;
-            currentBoard[i, j] = currentCell;
             try
             {
+                int x;
+                int y;
+                currentBoard[i, j] = currentCell;
+
                 for (x = 0; x < currentCell.Size; x++)
                 {
                     for (y = 0; y < currentCell.Size * 2; y++)
@@ -356,6 +370,8 @@ namespace Task1_Board
                 Console.ResetColor();
                 Console.Beep();
                 Console.WriteLine("You choose too big board. You should not write so big width or try to enlarge console.");
+                Console.ReadKey();
+                this.UserChoice();
             }
         }
     }

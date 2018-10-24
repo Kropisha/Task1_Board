@@ -4,6 +4,8 @@
 // <author>Yuliia Kropyvna</author>
 namespace Task1_Board
 {
+    using System;
+
     /// <summary>
     /// This class is for User Interface
     /// </summary>
@@ -15,6 +17,8 @@ namespace Task1_Board
         /// <param name="args">Args of command line</param>
         internal static void Main(string[] args)
         {
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.White;
             UI user = new UI();
             user.UserChoice();
         }

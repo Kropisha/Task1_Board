@@ -9,7 +9,7 @@ namespace Task1_Board
     /// <summary>
     /// This class represent a board
     /// </summary>
-    public class Board
+    public class Board : IBoard
     {
         /// <summary>
         /// current width
@@ -46,11 +46,27 @@ namespace Task1_Board
             {
                 this.Width = width;
                 this.Height = height;
-                this.cellArray = new Cell[this.Width, this.Height];
+                this.CellArray = new Cell[this.Width, this.Height];
             }
             else
             {
                 throw new ArgumentException("The size should be more than 0.");
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets cells for board
+        /// </summary>
+        public Cell[,] CellArray
+        {
+            get
+            {
+                return this.cellArray;
+            }
+
+            set
+            {
+                this.cellArray = value;
             }
         }
 

@@ -45,7 +45,7 @@ namespace Task1_BoardTests
         {
             //arrange
             int size = 3;
-            Cell.Color color = Cell.Color.Grey;
+            Color color = Color.Grey;
 
             //act
             Cell currentCell = new Cell(color, size);
@@ -62,7 +62,7 @@ namespace Task1_BoardTests
         {
             //arrange
             int size = 22;
-            Cell.Color color = Cell.Color.Grey;
+            Color color = Color.Grey;
 
             //act
             Cell currentCell = new Cell(color, size);
